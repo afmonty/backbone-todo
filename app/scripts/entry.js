@@ -39,9 +39,7 @@ const TodoList = Backbone.View.extend({
 	}
 });
 
-//var item = '';
-
-$('.add').on ('click', () => {
+	$('.add').on('click', () => {
 		let todo = $('.inputItem').val();
 	    list.push(todo);
 	    let item = new TodoList(todo);
