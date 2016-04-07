@@ -3,3 +3,18 @@
 body {
   background: $light-grey;
 }
+
+.input{
+	background: white;
+	padding: 3em;
+}
+input{
+	height: 2em;
+	width: 20em;
+}
+
+.display{
+	background: white;
+	height: 20em;
+	width: 30em;
+}
