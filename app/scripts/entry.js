@@ -12,41 +12,40 @@ import $ from 'jquery';
 let list = [];
 
 const TodoList = Backbone.View.extend({
-	tagName: 'ol',
+	tagName: 'li',
 	className: 'listItem',
 	events: {
 		'click': 'removeItem'
 	},
-	initialize:  function(item, status) {
+	initialize:  function(item) {
 		this.item = item;
 		this.status = false;
 		this.render();
 	},
-	template: function() {
-		const template = `
-		<li>${this.item}</li>
-		<div class = 'delItem>'</div>
-		`;
-	console.log(this.$el);
-	},
-	render: function() {		
-		this.$el.html(this.template());
-		$('.list').append(this.el);
+	// template: function() {
+	// 	const template = `
+	// 	<li>${this.item}</li>
+	// 	<div class = 'delItem'></div>
+	// 	`;
+	// 	return template;
+	// },
+	render: function() {	
+		$(".inputItem").val("")
+		this.$el.html(this.item);
+		$('.list').append(this.$el);
 	},
 	removeItem: function() { //called on click
-		this.item.remove();
+		this.$el.remove('li');
 	}
 });
 
 //var item = '';
 
-$('.add').on ('click', (e) => {
+$('.add').on ('click', () => {
 		let todo = $('.inputItem').val();
-		console.log(todo);
-	   // list.push($('.inputItem').va()));
-	   let item = new TodoList(todo);
-	   console.log(item);
-	   $('ol').append(todo.$el);
+	    list.push(todo);
+	    let item = new TodoList(todo);
+	    $('ol').append(item.$el);	
 	});
 
 
