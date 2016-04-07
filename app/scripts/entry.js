@@ -12,40 +12,50 @@ import $ from 'jquery';
 let list = [];
 
 const TodoList = Backbone.View.extend({
+	tagName: 'ol',
 	className: 'listItem',
 	events: {
-		'click .add': 'getItem',
-		'keyup .input': 'addTodoClick'
+		'click': 'removeItem'
 	},
-	initialize:  (item, status) => {
+	initialize:  function(item, status) {
 		this.item = item;
 		this.status = false;
-		console.log(this);
 		this.render();
 	},
-	getItem:  () => {
-		console.log(this.$(".inputItem"));
-	    this.list.push(this.$("inputItem")); 
-	},
-	template: () => {
+	template: function() {
 		const template = `
 		<li>${this.item}</li>
+		<div class = 'delItem>'</div>
 		`;
-	console.log(this.el);
+	console.log(this.$el);
 	},
-	render: () => {		
+	render: function() {		
 		this.$el.html(this.template());
-		$('ol').append(this.el);
+		$('.list').append(this.el);
 	},
-	addTodoClick: () => {
-	console.log('click');
+	removeItem: function() { //called on click
+		this.item.remove();
 	}
 });
-$(".add").click(function(e){
-	list.push($(".inputItem").val());
-	console.log(list)
-	$('ol').append('<li>'+$(".inputItem").val()+'</li>');
-})
 
-// var $(".inputItem", this.el) = new todoList('eatme');
-// todoList.render();
+//var item = '';
+
+$('.add').on ('click', (e) => {
+		let todo = $('.inputItem').val();
+		console.log(todo);
+	   // list.push($('.inputItem').va()));
+	   let item = new TodoList(todo);
+	   console.log(item);
+	   $('ol').append(todo.$el);
+	});
+
+
+// $(".add").click(function(e){
+// 	list.push($(".inputItem").val());
+// 	console.log(list)
+// 	$('ol').append('<li>'+$(".inputItem").val()+'</li>');
+// })
+
+
+
+
