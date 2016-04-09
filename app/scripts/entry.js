@@ -2,14 +2,10 @@
 import './../styles/main.scss';
 import Backbone from 'backbone';
 import $ from 'jquery';
+import TodoCollection from './collections/TodoCollection.js'
 
-// import a module from another file.
-// import tiy from './app.js';
 
-// // Looks like the imported module was a function, because here we're executing it!
-// tiy();
-
-let list = [];
+//let list = [];
 
 const TodoList = Backbone.View.extend({
 	tagName: 'li',
@@ -22,13 +18,6 @@ const TodoList = Backbone.View.extend({
 		this.status = false;
 		this.render();
 	},
-	// template: function() {
-	// 	const template = `
-	// 	<li>${this.item}</li>
-	// 	<div class = 'delItem'></div>
-	// 	`;
-	// 	return template;
-	// },
 	render: function() {	
 		$(".inputItem").val("")
 		this.$el.html(this.item);
@@ -39,19 +28,47 @@ const TodoList = Backbone.View.extend({
 	}
 });
 
-	$('.add').on('click', () => {
-		let todo = $('.inputItem').val();
-	    list.push(todo);
-	    let item = new TodoList(todo);
-	    $('ol').append(item.$el);	
-	});
+	// $('.add').on('click', () => {
+	// 	let todo = $('.inputItem').val();
+	//     //list.push(todo);
+	//     let item = new TodoList(todo);
+	//     $('ol').append(item.$el);	
+	// });
 
 
-// $(".add").click(function(e){
-// 	list.push($(".inputItem").val());
-// 	console.log(list)
-// 	$('ol').append('<li>'+$(".inputItem").val()+'</li>');
-// })
+let list = new TodoCollection();
+var settings = {
+	success: function() {
+		list.forEach((task) => {
+			console.log(list.get('task'));
+			let newTaskView = new TodoList(
+				list.get('task')
+			);
+			$('ol').append(newTaskView.el);
+		});
+	}
+};
+list.fetch(settings);
+
+$('.task-form').on('submit', (e) => {
+	e.preventDefault();
+	let newTask = {
+		task: $('.inputItem').val()
+	};
+	list.create(newTask);
+	let newTaskView = new TodoList(
+		newTask.task
+	);
+	$('ol').append(newTaskView.el);
+});
+
+
+
+// // $(".add").click(function(e){
+// // 	list.push($(".inputItem").val());
+// // 	console.log(list)
+// // 	$('ol').append('<li>'+$(".inputItem").val()+'</li>');
+// // })
 
 
 

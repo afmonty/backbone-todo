@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 
 
-const ImageModel = Backbone.Model.extend({
+const ToDoModel = Backbone.Model.extend({
 	defaults: {
 		task: 'Something to do'
 	},
@@ -9,4 +9,4 @@ const ImageModel = Backbone.Model.extend({
 	idAttribute: '_id'
 });
 
-export default ImageModel;
+export default TodoModel;
